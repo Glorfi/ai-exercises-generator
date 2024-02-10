@@ -16,8 +16,6 @@ const AddValuesAction = (
   return { ...state, ...action.payload };
 };
 
-// const AddValuesAction = createAction<IFormValues>('exerciseForm/addValues');
-
 export const ExerciseFormRouter = createSlice({
   name: 'exerciseForm',
   initialState,

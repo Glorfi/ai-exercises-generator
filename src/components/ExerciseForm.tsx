@@ -18,6 +18,7 @@ import { useGeneratePrompt } from '../utils/generatePrompt';
 import { LEARNER_AGE, LEARNER_LEVEL } from '../constants/prompt';
 import { useDispatch } from 'react-redux';
 import { addValues } from '../store/exercise-form/exercise-form-router';
+import { ISentence } from '../interfaces/sentence-with-input';
 
 interface IFormValues {
   skill: string;
@@ -35,7 +36,7 @@ function ExerciseForm() {
     learnerLevel: '', // LEARNER_LEVEL.B1,
     learnerAge: '', // LEARNER_AGE.adults,
   });
-  const [parsedData, setParsedData] = useState();
+  const [parsedData, setParsedData] = useState<ISentence[] | null>(null);
   const dispatch = useDispatch();
   const [sendMessage, { isLoading, isSuccess, data }] = useCompleteChatMutation(
     {
@@ -67,6 +68,14 @@ function ExerciseForm() {
   useEffect(() => {
     if (parsedData) {
       console.log(parsedData);
+      const isSetnteceListValid = parsedData.every((item) =>
+        item.sentence.includes(item.answer)
+      );
+      console.log(isSetnteceListValid);
+      if (!isSetnteceListValid) {
+        handleSendMessage();
+        setParsedData(null);
+      }
     }
   }, [parsedData]);
 

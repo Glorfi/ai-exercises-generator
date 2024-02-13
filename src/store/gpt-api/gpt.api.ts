@@ -8,7 +8,7 @@ const apiKeyPassword = import.meta.env.VITE_OPENAI_API_KEY_PASSWORD;
 import CryptoJS from 'crypto-js'
 
 export const gptApi = createApi({
-  reducerPath: 'api',
+  reducerPath: 'gpt',
   baseQuery: fetchBaseQuery({ baseUrl: 'https://api.openai.com/v1' }),
   endpoints: (builder) => ({
     completeChat: builder.mutation<IGptResponse, IGptRequest>({

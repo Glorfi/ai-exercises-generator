@@ -80,7 +80,7 @@ function ExerciseForm() {
   }, [parsedData]);
 
   return (
-    <Card>
+    <Card bgColor={'background'}>
       <CardBody display="flex" gap={'8px'} flexDirection={'column'}>
         <Text fontSize={'lg'}>Choose the skill:</Text>
         <RadioGroup

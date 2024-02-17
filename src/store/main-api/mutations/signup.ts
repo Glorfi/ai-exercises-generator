@@ -1,8 +1,9 @@
-import { url } from 'inspector';
-import { mainApi } from './MainApiRouter.api';
-import { API_PATH } from '../../constants/ApiBaseUrl';
-import { ISignUPResponse } from '../../interfaces/responses/signup';
-import { ISignUPRequest } from '../../interfaces/requests/signup';
+import { API_PATH } from '../../../constants/ApiBaseUrl';
+import { ISignInRequest } from '../../../interfaces/requests/signin';
+import { ISignUPRequest } from '../../../interfaces/requests/signup';
+import { ISignInResponse } from '../../../interfaces/responses/signin';
+import { ISignUPResponse } from '../../../interfaces/responses/signup';
+import { mainApi } from '../MainApiRouter.api';
 
 const mainApiEndpoint = mainApi.injectEndpoints({
   endpoints: (builder) => ({

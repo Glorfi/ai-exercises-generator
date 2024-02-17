@@ -96,9 +96,9 @@ export const useGeneratePrompt = (
     The sentence should be appropriate for ${config.learnerLevel}.
     The learners are ${config.learnerAge}.
     The sentences should use casual language.
-    ${config.task}
-    In your reply write nothing else but JSON`);
+    ${config.task}`);
   }, [config]);
 
   return prompt;
 };
+//    In your reply write nothing else but JSON

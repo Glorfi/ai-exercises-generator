@@ -21,10 +21,9 @@ import { Link as ReactRouterLink, useNavigate } from 'react-router-dom';
 import { Link as ChakraLink } from '@chakra-ui/react';
 import { APP_PATHS } from '../../constants/AppPaths';
 import { ChangeEvent, useEffect, useState } from 'react';
-import { useSignUpMutation } from '../../store/main-api/MainApiEndpoints';
 import { useDebounce } from '../../utils/useDebounce';
-import { delay } from '@reduxjs/toolkit/dist/utils';
-import { SerializedError } from '@reduxjs/toolkit';
+import { customError } from '../../interfaces/customError';
+import { useSignUpMutation } from '../../store/main-api/mutations/signup';
 
 interface ISignUPForm {
   email: string;
@@ -63,7 +62,8 @@ export const SignUpPage = (): JSX.Element => {
     setFormValues({ ...formValues, [e.target.name]: e.target.value });
   }
 
-  function handleSubmit() {
+  function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+    e.preventDefault();
     const { email, password } = formValues;
     signUp({ email, password });
   }
@@ -94,9 +94,7 @@ export const SignUpPage = (): JSX.Element => {
           isPasswordValid: null,
         });
   }, [debouncePassword]);
-  interface customError {
-    data: SerializedError;
-  }
+
   // TO DO: подумать как позже хендлить ошибки чуть более централизовано
   useEffect(() => {
     if (error) {
@@ -157,7 +155,15 @@ export const SignUpPage = (): JSX.Element => {
           >
             Create Account
           </Text>
-          <Box as="form" mt={'48px'} display={'flex'} flexDir={'column'}>
+          <Box
+            as="form"
+            mt={'48px'}
+            display={'flex'}
+            flexDir={'column'}
+            action="none"
+            id="signupform"
+            onSubmit={handleSubmit}
+          >
             <FormControl
               minH={'88px'}
               isInvalid={
@@ -261,6 +267,7 @@ export const SignUpPage = (): JSX.Element => {
               isRound={true}
               aria-label={''}
               type="submit"
+              form="signupform"
               bgColor={'secondary.base'}
               colorScheme="secondary"
               icon={<ArrowForwardIcon w={'24px'} h={'30px'} />}
@@ -269,7 +276,6 @@ export const SignUpPage = (): JSX.Element => {
               isDisabled={
                 !Object.values(isFormValid).every((key) => key === true)
               }
-              onClick={handleSubmit}
             />
           </HStack>
           <Box mt={'100px'}>

@@ -3,7 +3,19 @@ import { extendTheme } from '@chakra-ui/react';
 
 // 2. Extend the theme to include custom colors, fonts, etc
 const colors = {
-  background: '#fffefa', //(White)
+  white: '#fffefa',
+  whiteOpacity: {
+    50: 'rgba(255, 254, 250, 0.05)',
+    100: 'rgba(255, 254, 250, 0.1)',
+    200: 'rgba(255, 254, 250, 0.2)',
+    300: 'rgba(255, 254, 250, 0.3)',
+    400: 'rgba(255, 254, 250, 0.4)',
+    500: 'rgba(255, 254, 250, 0.5)',
+    600: 'rgba(255, 254, 250, 1)', // Основной тон
+    700: 'rgba(255, 254, 250, 0.7)',
+    800: 'rgba(255, 254, 250, 0.8)',
+    900: 'rgba(255, 254, 250, 0.9)',
+  }, // '#fffefa', //(White)
   primary: '#1d345a', // (Navy Blue)
   secondary: {
     base: '#0066a2',

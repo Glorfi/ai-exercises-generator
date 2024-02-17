@@ -7,23 +7,36 @@ export const WORKSHEET_SKILL = {
 };
 
 export const VOCABULARY_WORKSHEET_TYPE = {
-  fillInGaps: `I need a JSON with the following keys: 
-  "sentence" is the sentence you generate with answers included.
-  "answer" is the form of the word or the phrase in your sentence.
-  "hint" is the base form of the word or the phrase. 
-  [{ "sentence",
-  "answer",
-  "hint"}  ...]`,
-  multipleChoice: `I need a JSON with the following keys: 
-  "sentence" is the sentence you generate with the answer included.
-  "answer" is the form of the word or the phrase in your sentence.
-  "hint" is the base form of the word or the phrase. 
-"options" is the array of strings with options for mutliple choise, options should contain the correct answer and 2 incompatible but lexically similar words. 
-  [{ "sentence",
-  "answer",
-  "hint", 
-"options",}  ...]`,
+  fillInGaps: `In your reply write nothing else but JSON:
+  [ {"sentence": "your sentence generated here",
+   "answer":  "the form of the word or the phrase in your sentence",
+   "hint":  "the base form of the word or the phrase",
+"options": "is the array of strings with options for mutliple choise, options should contain the correct answer and 2 wrong but similar in meaning but incompatible words"}]`,
+  multipleChoice: `In your reply write nothing else but JSON:
+  [ {"sentence": "your sentence generated here",
+   "answer":  "the form of the word or the phrase in your sentence",
+   "hint":  "the base form of the word or the phrase",
+"options": "is the array of strings with options for mutliple choise, options should contain the correct answer and 2 wrong but similar in meaning but incompatible words"}]`,
 };
+
+// export const VOCABULARY_WORKSHEET_TYPE = {
+//   fillInGaps: `I need a JSON with the following keys:
+//   "sentence" is the sentence you generate with answers included.
+//   "answer" is the form of the word or the phrase in your sentence.
+//   "hint" is the base form of the word or the phrase.
+//   [{ "sentence",
+//   "answer",
+//   "hint"}  ...]`,
+//   multipleChoice: `I need a JSON with the following keys:
+//   "sentence" is the sentence you generate with the answer included.
+//   "answer" is the form of the word or the phrase in your sentence.
+//   "hint" is the base form of the word or the phrase.
+// "options" is the array of strings with options for mutliple choise, options should contain the correct answer and 2 incompatible but lexically similar words.
+//   [{ "sentence",
+//   "answer",
+//   "hint",
+// "options",}  ...]`,
+// };
 
 export const LEARNER_LEVEL = {
   A1: 'the beginner A1 level',

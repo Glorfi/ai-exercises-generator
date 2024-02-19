@@ -1,7 +1,7 @@
 import { ISentence } from './sentence-with-input';
 
 export interface IExercise {
-  owner: string[];
+  owner: string[] | string;
   skill: 'grammar' | 'vocabulary';
   type: 'fillInGaps' | 'multipleChoice';
   _id: string;
@@ -12,4 +12,10 @@ export interface IExercise {
   taskDescription?: string;
   studentLevel?: string;
   studentAge?: number;
+}
+
+export interface IExerciseCreate {
+  type: string;
+  skill: string;
+  sentenceList: ISentence[];
 }

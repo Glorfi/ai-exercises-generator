@@ -1,24 +1,22 @@
 import { API_PATH } from '../../../constants/ApiBaseUrl';
 import { IExercise } from '../../../interfaces/exercise';
+import { ICreateExerciseRequest } from '../../../interfaces/requests/createExercise';
 import { mainApi } from '../MainApiRouter.api';
 
 const mainApiEndpoint = mainApi.injectEndpoints({
   endpoints: (builder) => ({
-    getExerciseById: builder.query<
-      IExercise,
-      { token?: string | null | undefined; id: string | undefined }
-    >({
-      query: ({ token, id }) => ({
-        url: `${API_PATH.EXERCISES}/${id}`,
+    createExercise: builder.mutation<IExercise, ICreateExerciseRequest>({
+      query: ({ token, body }) => ({
+        url: `${API_PATH.EXERCISES}`,
         headers: {
           'Content-Type': 'application/json',
           Authorization: `Bearer ${token}`,
         },
-        method: 'GET',
+        method: 'POST',
+        body,
       }),
     }),
   }),
 });
 
-export const { useGetExerciseByIdQuery, useLazyGetExerciseByIdQuery } =
-  mainApiEndpoint;
+export const { useCreateExerciseMutation } = mainApiEndpoint;

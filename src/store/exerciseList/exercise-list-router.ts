@@ -22,13 +22,22 @@ const removeExerciseAction = (
   return state.filter((item) => item._id !== action.payload);
 };
 
+const addExerciseAction = (
+  state: IExercise[],
+  action: PayloadAction<IExercise>
+) => {
+  return [...state, action.payload];
+};
+
 export const exerciseListRouter = createSlice({
   name: 'exerciseList',
   initialState,
   reducers: {
     addExerciseList: addExerciseListAction,
     removeExercise: removeExerciseAction,
+    addExercise: addExerciseAction,
   },
 });
 
-export const { addExerciseList, removeExercise } = exerciseListRouter.actions;
+export const { addExerciseList, removeExercise, addExercise } =
+  exerciseListRouter.actions;

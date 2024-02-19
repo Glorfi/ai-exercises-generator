@@ -31,6 +31,19 @@ const colors = {
     900: '#001120',
   }, // (Dark Cyan)
   highlight: '#09abd2', //  (Light Cyan)
+  error: {
+    base: '#D9534F',
+    50: '#fde6e5',
+    100: '#fabdbb',
+    200: '#f89390',
+    300: '#f56966',
+    400: '#f2403c',
+    500: '#D9534F',
+    600: '#b43131',
+    700: '#8e2828',
+    800: '#671e1e',
+    900: '#401515',
+},
 };
 
 const breakboints = {

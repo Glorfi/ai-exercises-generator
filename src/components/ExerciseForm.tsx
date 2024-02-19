@@ -19,9 +19,13 @@ import { LEARNER_AGE, LEARNER_LEVEL } from '../constants/prompt';
 import { useDispatch } from 'react-redux';
 import { addValues } from '../store/exercise-form/exercise-form-router';
 import { ISentence } from '../interfaces/sentence-with-input';
+import { useCreateExerciseMutation } from '../store/main-api/mutations/createExercise';
+import { LSHandler } from '../utils/handleLocalStorage';
+import { UserContext } from '../contexts/UserContext';
+import { addExercise } from '../store/exerciseList/exercise-list-router';
 
 interface IFormValues {
-  skill: string;
+  skill: 'grammar' | 'vocabulary' | string;
   taskType: string;
   wordList: string;
   learnerLevel: string;
@@ -37,12 +41,24 @@ function ExerciseForm() {
     learnerAge: '', // LEARNER_AGE.adults,
   });
   const [parsedData, setParsedData] = useState<ISentence[] | null>(null);
+  const [isCreated, setIsFetched] = useState<boolean>(false);
   const dispatch = useDispatch();
+  const token = LSHandler.getJwt();
+
   const [sendMessage, { isLoading, isSuccess, data }] = useCompleteChatMutation(
     {
       fixedCacheKey: 'shared-AI-answer',
     }
   );
+  const [
+    createExercise,
+    {
+      isLoading: isCreatingLoading,
+      isSuccess: isCreatingSuccess,
+      data: createdExercise,
+    },
+  ] = useCreateExerciseMutation();
+
   function handleSendMessage() {
     dispatch(addValues(formValues));
     sendMessage({ content: prompt });
@@ -60,7 +76,7 @@ function ExerciseForm() {
   }, [prompt, formValues]);
 
   useEffect(() => {
-    if (isSuccess && data) {
+    if (isSuccess && data && !parsedData) {
       setParsedData(JSON.parse(data.choices[0].message.content));
     }
   }, [isSuccess]);
@@ -75,9 +91,29 @@ function ExerciseForm() {
       if (!isSetnteceListValid) {
         handleSendMessage();
         setParsedData(null);
+      } else {
+        createExercise({
+          token,
+          body: {
+            sentenceList: parsedData,
+            skill: formValues.skill,
+            type: formValues.taskType,
+          },
+        });
       }
     }
   }, [parsedData]);
+
+  useEffect(() => {
+    if (createdExercise) {
+      dispatch(addExercise(createdExercise));
+    }
+  }, [createdExercise]);
+
+  useEffect(() => {
+    // Сброс parsedData при монтировании компонента
+    setParsedData(null);
+  }, []);
 
   return (
     <Card bgColor={'background'}>

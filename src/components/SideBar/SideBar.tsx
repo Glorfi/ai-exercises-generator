@@ -37,15 +37,16 @@ export const SideBarMenu = (): JSX.Element => {
   const [userData, setUserData] = useContext(UserContext);
   const newExList = useSelector((state: RootState) => state.exerciseList);
   const dispatch = useDispatch();
-  const [_, { data: deletedEx }] = useDeleteExerciseMutation({
-    fixedCacheKey: 'deleteEx',
-  });
+
+  const [exercisesToDisplay, setExercisesToDisplay] = useState<IExercise[]>([]);
 
   useEffect(() => {
-    if (deletedEx) {
-      dispatch(removeExercise(deletedEx._id));
-    }
-  }, [deletedEx]);
+    const exsSorted = [...newExList].sort(
+      (a, b) =>
+        new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
+    );
+    setExercisesToDisplay(exsSorted);
+  }, [newExList]);
 
   return (
     <HStack gap={0} display={['none', 'flex']}>
@@ -70,7 +71,6 @@ export const SideBarMenu = (): JSX.Element => {
                 size={'lg'}
                 fontSize={'16px'}
                 padding={'0 16px'}
-                //  onClick={() => navigate(APP_PATHS.DASHBOARD)}
               >
                 Create Exercise
               </Button>
@@ -91,7 +91,7 @@ export const SideBarMenu = (): JSX.Element => {
               className="thumbnailStack"
               w={'100%'}
             >
-              {newExList?.map((ex) => {
+              {exercisesToDisplay?.map((ex) => {
                 return <ExerciseThumbnail data={ex} key={ex._id} />;
               })}
             </VStack>

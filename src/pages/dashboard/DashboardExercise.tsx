@@ -9,25 +9,22 @@ import { ExerciseSentenceInput } from '../../components/ExerciseSentenceInput';
 import { useDeleteExerciseMutation } from '../../store/main-api/mutations/deleteExercise';
 import { APP_PATHS } from '../../constants/AppPaths';
 import { ExerciseSelectInput } from '../../components/ExerciseSelectInput';
+import { useGetExerciseByIdQuery } from '../../store/main-api/queries/getExerciseById';
+import { LSHandler } from '../../utils/handleLocalStorage';
+import { useSelector } from 'react-redux';
+import { RootState } from '../../store/store';
 
 export const DashboardExercisePage = (): JSX.Element => {
   const { id } = useParams();
-  const [userData] = useContext(UserContext);
+  const navigate = useNavigate();
+
+  const [ex, setEx] = useState<IExercise | null | undefined>(null);
+  const [isNotFound, setIsNotFound] = useState<boolean>(false);
+  const exerciseList = useSelector((state: RootState) => state.exerciseList);
+
   const [_, { data: deletedEx }] = useDeleteExerciseMutation({
     fixedCacheKey: 'deleteEx',
   });
-  const [ex, setEx] = useState<IExercise | null | undefined>(null);
-  const navigate = useNavigate();
-
-  useEffect(() => {
-    if (userData) {
-      setEx(
-        userData.exercises.find((item) => {
-          return item._id === id;
-        })
-      );
-    }
-  }, [userData]);
 
   useEffect(() => {
     if (deletedEx?._id === id) {
@@ -36,13 +33,25 @@ export const DashboardExercisePage = (): JSX.Element => {
   }, [deletedEx]);
 
   useEffect(() => {
-    console.log(ex);
-  }, [ex]);
+    const currentEx = exerciseList.find((item) => item._id === id);
+    console.log(currentEx);
+    if (!currentEx) {
+      setIsNotFound(true);
+      setEx(null);
+      return;
+    }
+    setIsNotFound(false);
+    setEx(currentEx);
+  }, [exerciseList, id]);
+
   return (
     <Box minH={'100vh'}>
       <HStack alignItems={'flex-start'}>
         <SideBarMenu />
         <HStack alignItems={'center'} w={'100%'} justifyContent={'center'}>
+          {isNotFound ? (
+            <Text>Ooops! Seems The exercise isn't found</Text>
+          ) : null}
           {ex?.type === 'fillInGaps' ? (
             <ExerciseSentenceInput sentenceList={ex.sentenceList} />
           ) : null}

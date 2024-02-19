@@ -3,18 +3,16 @@ import {
   MenuButton,
   MenuList,
   MenuItem,
-  MenuItemOption,
-  MenuGroup,
-  MenuOptionGroup,
-  MenuDivider,
   useDisclosure,
+  Icon,
 } from '@chakra-ui/react';
 import { ExThumbnailButton } from './ExThumbNailButton';
+import { FaRegTrashCan, FaRegShareFromSquare } from 'react-icons/fa6';
 import { IExercise } from '../interfaces/exercise';
 import { useDeleteExerciseMutation } from '../store/main-api/mutations/deleteExercise';
-import React, { useContext } from 'react';
-import { UserContext } from '../contexts/UserContext';
 import { LSHandler } from '../utils/handleLocalStorage';
+import { DeleteExercisePopUp } from './DeleteExercisePopUp';
+import { ShareExercisePopUp } from './ShareExercisePopUp';
 
 interface IExThumbnailMenuProps {
   exData: IExercise;
@@ -26,22 +24,47 @@ export const ExThumbnailMenu = (props: IExThumbnailMenuProps): JSX.Element => {
   const [deleteExercise, { data }] = useDeleteExerciseMutation({
     fixedCacheKey: 'deleteEx',
   });
+  const deleteHandler = useDisclosure();
+  const shareHandler = useDisclosure();
 
-  function handleDeleteExercise(e: React.MouseEvent) {
-    console.log(e.target);
-    console.log(e.currentTarget);
+  function handleDeleteButton(e: React.MouseEvent) {
     e.stopPropagation();
-    deleteExercise({ token: jwt, id: exData._id });
+    deleteHandler.onOpen();
+  }
+
+  function handleShareButton(e: React.MouseEvent) {
+    e.stopPropagation();
+    shareHandler.onOpen();
   }
 
   return (
-    <Menu closeOnBlur closeOnSelect placement={'bottom'}>
-      <MenuButton as={ExThumbnailButton}></MenuButton>
-      <MenuList bgColor={'background'}>
-        <MenuItem>Share</MenuItem>
-        <MenuItem onClick={handleDeleteExercise}>Delete</MenuItem>
-      </MenuList>
-    </Menu>
+    <>
+      <Menu closeOnBlur closeOnSelect placement={'bottom'}>
+        <MenuButton as={ExThumbnailButton}></MenuButton>
+        <MenuList bgColor={'background'}>
+          <MenuItem onClick={handleShareButton}>
+            <Icon as={FaRegShareFromSquare} mr={'8px'} />
+            Share
+          </MenuItem>
+          <MenuItem onClick={handleDeleteButton} color={'error.base'}>
+            <Icon as={FaRegTrashCan} mr={'8px'} />
+            Delete
+          </MenuItem>
+        </MenuList>
+      </Menu>
+      <DeleteExercisePopUp
+        isOpen={deleteHandler.isOpen}
+        onClose={deleteHandler.onClose}
+        onOpen={deleteHandler.onOpen}
+        id={exData._id}
+      />
+      <ShareExercisePopUp
+        isOpen={shareHandler.isOpen}
+        onClose={shareHandler.onClose}
+        onOpen={shareHandler.onOpen}
+        id={exData._id}
+      />
+    </>
   );
 };
 

@@ -1,3 +1,4 @@
+import circle from '../../assets/signin-elipse.svg';
 import validator from 'validator';
 import { ArrowForwardIcon } from '@chakra-ui/icons';
 import {
@@ -139,12 +140,7 @@ export const SignUpPage = (): JSX.Element => {
         bgColor={'background'}
         position={'relative'}
       >
-        <Image
-          src="src\assets\signin-elipse.svg"
-          maxW={'233px'}
-          zIndex={'0'}
-          position={'absolute'}
-        />
+        <Image src={circle} maxW={'233px'} zIndex={'0'} position={'absolute'} />
         <CardBody position={'relative'}>
           <Text
             color={'primary'}

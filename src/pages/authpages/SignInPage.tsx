@@ -1,3 +1,4 @@
+import circle from '../../assets/signin-elipse.svg'
 import { ArrowForwardIcon } from '@chakra-ui/icons';
 import {
   Box,
@@ -151,7 +152,7 @@ export const SignInPage = (): JSX.Element => {
         position={'relative'}
       >
         <Image
-          src="src\assets\signin-elipse.svg"
+          src={circle}
           maxW={'233px'}
           zIndex={'0'}
           position={'absolute'}

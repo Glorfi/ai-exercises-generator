@@ -1,8 +1,14 @@
-import { Navigate, Route, Routes, useLocation } from 'react-router-dom';
+import {
+  BrowserRouter,
+  Navigate,
+  Route,
+  Routes,
+  useLocation,
+} from 'react-router-dom';
 import './index.css';
 import { AppRoutes } from './pages/RoutesConfig';
 
-import { useContext, useEffect } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { UserContext } from './contexts/UserContext';
 import {
   useGetCurrentUserQuery,
@@ -12,6 +18,7 @@ import { LSHandler } from './utils/handleLocalStorage';
 import { APP_PATHS } from './constants/AppPaths';
 import { useDispatch } from 'react-redux';
 import { addExerciseList } from './store/exerciseList/exercise-list-router';
+import { MainPage } from './pages/main/MainPage';
 
 function App() {
   const [user, setUserData] = useContext(UserContext);
@@ -27,10 +34,7 @@ function App() {
     }
   }, [data]);
 
-  // if (isLoading) {
-  //   return <></>;
-  // }
-
+  useEffect;
   return (
     <Routes>
       {AppRoutes.map((route, index) => (

@@ -5,7 +5,8 @@ const isProduction = process.env.NODE_ENV === 'production';
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  base: isProduction ? '/ai-exercises-generator/' : '/',
+  base: '/',
+  //  base: isProduction ? '/ai-exercises-generator/' : '/',
   plugins: [react()],
   server: {
     port: 3000,

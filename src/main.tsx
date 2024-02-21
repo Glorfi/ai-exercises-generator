@@ -7,10 +7,11 @@ import { Provider } from 'react-redux';
 import { store } from './store/store.ts';
 import { BrowserRouter } from 'react-router-dom';
 import { UserContextProvider } from './contexts/UserContextProvider.tsx';
+const isProduction = process.env.NODE_ENV === 'production';
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
-    <BrowserRouter>
+    <BrowserRouter basename={isProduction ? '/ai-exercises-generator/' : '/'}>
       <Provider store={store}>
         <ChakraProvider theme={theme}>
           <UserContextProvider>

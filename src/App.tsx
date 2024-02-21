@@ -27,9 +27,9 @@ function App() {
     }
   }, [data]);
 
-  if (isLoading) {
-    return <></>;
-  }
+  // if (isLoading) {
+  //   return <></>;
+  // }
 
   return (
     <Routes>

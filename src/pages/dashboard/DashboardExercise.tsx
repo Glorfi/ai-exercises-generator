@@ -48,7 +48,12 @@ export const DashboardExercisePage = (): JSX.Element => {
     <Box minH={'100vh'}>
       <HStack alignItems={'flex-start'}>
         <SideBarMenu />
-        <HStack alignItems={'center'} w={'100%'} justifyContent={'center'}>
+        <HStack
+          minH={'100vh'}
+          alignItems={'center'}
+          w={'100%'}
+          justifyContent={'center'}
+        >
           {isNotFound ? (
             <Text>Ooops! Seems The exercise isn't found</Text>
           ) : null}

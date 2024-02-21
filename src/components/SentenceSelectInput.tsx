@@ -61,7 +61,7 @@ export const SentenceSelectInput = (props: ISentenceSelectInputProps) => {
             <Select
               size={'sm'}
               display={'inline-block'}
-              //placeholder={" "}
+              borderRadius={'40px'}
               w={'max-content'}
               m={'0 8px 0 0'}
               boxSizing={'border-box'}

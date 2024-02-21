@@ -2,7 +2,7 @@ const { hostname } = window.location;
 
 export const API_PATH = {
   BASE:
-    hostname === 'localhost'
+    hostname === 'localhost' || '192.168.43.59'
       ? 'http://localhost:5050/api'
       : 'someotherDOMAINtoconfigurelater',
   SIGN_UP: '/auth/signup',

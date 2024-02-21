@@ -31,7 +31,7 @@ export const SentenceInput = (props: ISentenceInputProps) => {
       handleValidity();
     } else {
       setIsValid(null);
-    //  setValue('');
+      //  setValue('');
     }
   }, [isCheckActive]);
 
@@ -55,6 +55,7 @@ export const SentenceInput = (props: ISentenceInputProps) => {
               value={value}
               isInvalid={isValid === false ? true : false}
               borderColor={isCheckActive && isValid ? 'green.500' : 'inherit'}
+              borderRadius={'40px'}
               boxShadow={
                 isCheckActive && isValid ? '0 0 0 1px #38A169' : 'inherit'
               }

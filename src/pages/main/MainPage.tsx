@@ -1,5 +1,13 @@
-import { VStack } from '@chakra-ui/react';
-
+import {
+  VStack,
+  Text,
+  HStack,
+  ButtonGroup,
+  Button,
+  textDecoration,
+} from '@chakra-ui/react';
+import { Link as ReactRouterLink } from 'react-router-dom';
+import { Link as ChakraLink, LinkProps } from '@chakra-ui/react';
 import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import ExerciseForm from '../../components/ExerciseForm';
@@ -8,6 +16,8 @@ import { ExerciseSentenceInput } from '../../components/ExerciseSentenceInput';
 import { ISentence } from '../../interfaces/sentence-with-input';
 import { useCompleteChatMutation } from '../../store/gpt-api/gpt.api';
 import { RootState } from '../../store/store';
+import { APP_PATHS } from '../../constants/AppPaths';
+import { MobileMenu } from '../../components/MobileMenu';
 
 export const MainPage = (): JSX.Element => {
   const [sendMessage, { isSuccess, isLoading, data }] = useCompleteChatMutation(
@@ -49,8 +59,89 @@ export const MainPage = (): JSX.Element => {
   // }, [formData]);
 
   return (
-    <VStack minHeight={'100vh'} m={'0 auto'} maxW={'800px'}>
-      <ExerciseForm />
+    <VStack
+      minHeight={'100vh'}
+      m={'0 auto'}
+      maxW={'800px'}
+      padding={['0 20px', '0 20px', '0 20px', '0']}
+    >
+      <HStack
+        justifyContent={'space-between'}
+        w={'100%'}
+        margin={'16px 0 0 0'}
+        color={'highlight.base'}
+      >
+        <ButtonGroup display={['none', 'inline-flex']}>
+          <ChakraLink
+            as={ReactRouterLink}
+            to={APP_PATHS.MAIN}
+            color={'secondary.base'}
+            border={'1px solid transparent'}
+            _hover={{ textDecoration: 'none', borderBottom: '1px solid' }}
+          >
+            Home
+          </ChakraLink>
+          <ChakraLink
+            as={ReactRouterLink}
+            to={APP_PATHS.DASHBOARD}
+            color={'secondary.base'}
+            border={'1px solid transparent'}
+            _hover={{ textDecoration: 'none', borderBottom: '1px solid' }}
+          >
+            Dashboard
+          </ChakraLink>
+          <ChakraLink
+            as={ReactRouterLink}
+            to={'#'}
+            color={'secondary.base'}
+            border={'1px solid transparent'}
+            _hover={{ textDecoration: 'none', borderBottom: '1px solid' }}
+          >
+            Profile
+          </ChakraLink>
+        </ButtonGroup>
+        <MobileMenu />
+        <ButtonGroup alignItems={'center'}>
+          <ChakraLink
+            as={ReactRouterLink}
+            to={APP_PATHS.SIGN_IN}
+            color={'secondary.base'}
+            border={'1px solid transparent'}
+            _hover={{ textDecoration: 'none', borderBottom: '1px solid' }}
+          >
+            Sign In
+          </ChakraLink>
+          <ChakraLink as={ReactRouterLink} to={APP_PATHS.SIGN_UP}>
+            <Button
+              variant={'ghost'}
+              colorScheme="secondary"
+              borderRadius={'40px'}
+            >
+              SIGN UP
+            </Button>
+          </ChakraLink>
+        </ButtonGroup>
+      </HStack>
+      <VStack
+        gap={0}
+        justifyContent={'flex-start'}
+        alignItems={'flex-start'}
+        mt={'80px'}
+        w={'100%'}
+      >
+        <Text color={'primary'} fontSize={'24px'}>
+          Welcome to
+        </Text>
+        <Text
+          as="h1"
+          color={'primary'}
+          fontSize={'80px'}
+          fontWeight={'bold'}
+          lineHeight={'80px'}
+        >
+          ESL Teacher ToolKit
+        </Text>
+      </VStack>
       {isSuccess && parsedData && formData.taskType === 'fillInGaps' ? (
         <ExerciseSentenceInput sentenceList={parsedData} />
       ) : null}

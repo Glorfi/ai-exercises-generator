@@ -20,6 +20,8 @@ import { useEffect, useState } from 'react';
 import { ISentence } from '../interfaces/sentence-with-input';
 import { shuffleArray } from '../utils/shuffleArray';
 import { SentenceSelectInput } from './SentenceSelectInput';
+import { GrPowerReset } from 'react-icons/gr';
+import { IoMdCheckmarkCircleOutline } from 'react-icons/io';
 
 interface IExerciseSelectInput {
   sentenceList: ISentence[];
@@ -69,31 +71,12 @@ export const ExerciseSelectInput = (props: IExerciseSelectInput) => {
 
   return (
     <Card>
-      <CardHeader ml={'auto'}>
-        <Button
-          colorScheme={'telegram'}
-          size={'sm'}
-          variant={'outline'}
-          onClick={handleShuffleClick}
-        >
-          Shuffle Sentences
-        </Button>
+      <CardHeader p={'20px 20px 0'}>
+        <Text color={'primary'} fontWeight={'bold'}>
+          Choose the correct option to complete the sentences
+        </Text>
       </CardHeader>
       <CardBody display={'flex'} flexDirection={'column'} gap={'16px'}>
-        {/* <HStack>
-          {hintsList.map((item, index) => {
-            return (
-              <Text
-                key={`answer${index}`}
-                variant={'outline'}
-                colorScheme={'telegram'}
-                size={'sm'}
-              >
-                {item}
-              </Text>
-            );
-          })}
-        </HStack> */}
         <OrderedList spacing={'4px'}>
           {exsData.map((item, index) => {
             return (
@@ -117,21 +100,24 @@ export const ExerciseSelectInput = (props: IExerciseSelectInput) => {
       >
         <ButtonGroup>
           <Button
-            colorScheme={'telegram'}
+            colorScheme={'highlight'}
             size={'sm'}
             variant={'outline'}
             onClick={() => setIsCheckActive(true)}
+            rightIcon={<IoMdCheckmarkCircleOutline />}
           >
-            Check your answers
+            Check Answers
           </Button>
-          <IconButton
-            icon={<RxReset />}
-            colorScheme={'telegram'}
+          <Button
+            rightIcon={<GrPowerReset />}
+            colorScheme={'highlight'}
             size={'sm'}
             variant={'outline'}
             onClick={() => setIsCheckActive(false)}
             aria-label={''}
-          />
+          >
+            Reset Checking
+          </Button>
         </ButtonGroup>
         <Text display={isCheckActive ? 'block' : 'none'}>Score: {score}</Text>
       </CardFooter>

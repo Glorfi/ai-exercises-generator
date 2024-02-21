@@ -14,6 +14,9 @@ import {
   Box,
 } from '@chakra-ui/react';
 import { sampleData } from '../constants/answer-sample';
+import { IoMdCheckmarkCircleOutline } from 'react-icons/io';
+import { GrPowerReset } from 'react-icons/gr';
+
 import { RxReset } from 'react-icons/rx';
 import { SentenceInput } from './SentenceInput';
 import { useEffect, useState } from 'react';
@@ -64,31 +67,40 @@ export const ExerciseSentenceInput = (props: IExerciseSentenceInput) => {
 
   return (
     <Card>
-      <CardHeader ml={'auto'}>
-        <Button
-          colorScheme={'telegram'}
-          size={'sm'}
-          variant={'outline'}
-          onClick={handleShuffleClick}
+      <CardHeader p={'20px 20px 0'}>
+        <Text color={'primary'} fontWeight={'bold'}>
+          Fill the gaps with the correct word from the box
+        </Text>
+        <Box
+          w={'100%'}
+          mt={'8px'}
+          display={'inline-flex'}
+          border={'1px solid'}
+          borderColor={'highlight'}
+          borderRadius={'8px'}
+          p={'8px'}
         >
-          Shuffle Sentences
-        </Button>
-      </CardHeader>
-      <CardBody display={'flex'} flexDirection={'column'} gap={'16px'}>
-        <HStack>
           {hintsList.map((item, index) => {
+            if (index === hintsList.length - 1) {
+              return (
+                <Text
+                  key={`answer${index}`}
+                  mr={'4px'}
+                  color={'secondary.base'}
+                >{`${item}${' '}`}</Text>
+              );
+            }
             return (
               <Text
                 key={`answer${index}`}
-                variant={'outline'}
-                colorScheme={'telegram'}
-                size={'sm'}
-              >
-                {item}
-              </Text>
+                mr={'4px'}
+                color={'secondary.base'}
+              >{`${item},${' '}`}</Text>
             );
           })}
-        </HStack>
+        </Box>
+      </CardHeader>
+      <CardBody display={'flex'} flexDirection={'column'} gap={'16px'}>
         <OrderedList spacing={'4px'}>
           {exsData.map((item, index) => {
             return (
@@ -113,21 +125,24 @@ export const ExerciseSentenceInput = (props: IExerciseSentenceInput) => {
       >
         <ButtonGroup>
           <Button
-            colorScheme={'telegram'}
+            colorScheme={'highlight'}
             size={'sm'}
             variant={'outline'}
             onClick={() => setIsCheckActive(true)}
+            rightIcon={<IoMdCheckmarkCircleOutline />}
           >
-            Check your answers
+            Check Answers
           </Button>
-          <IconButton
-            icon={<RxReset />}
-            colorScheme={'telegram'}
+          <Button
+            rightIcon={<GrPowerReset />}
+            colorScheme={'highlight'}
             size={'sm'}
             variant={'outline'}
             onClick={() => setIsCheckActive(false)}
             aria-label={''}
-          />
+          >
+            Reset Checking
+          </Button>
         </ButtonGroup>
         <Text display={isCheckActive ? 'block' : 'none'}>Score: {score}</Text>
       </CardFooter>

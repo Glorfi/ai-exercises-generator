@@ -33,6 +33,8 @@ export const ShareExercisePopUp = (
   const [isCopied, setIsCopied] = useState<boolean>(false);
 
   function handleCopyButton(e: React.MouseEvent) {
+    console.log(navigator);
+
     navigator.clipboard.writeText(publicLink);
     setIsCopied(!isCopied);
     setTimeout(() => setIsCopied(false), 3000);

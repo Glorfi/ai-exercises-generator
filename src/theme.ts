@@ -30,7 +30,20 @@ const colors = {
     800: '#003050',
     900: '#001120',
   }, // (Dark Cyan)
-  highlight: '#09abd2', //  (Light Cyan)
+  // highlight: '#09abd2', //  (Light Cyan)
+  highlight: {
+    base: '#09abd2',
+    50: '#e3f8fb',
+    100: '#baeef8',
+    200: '#8ae4f5',
+    300: '#5adaf2',
+    400: '#2ecff0',
+    500: '#09abd2',
+    600: '#0791b8',
+    700: '#05789e',
+    800: '#035e83',
+    900: '#014469',
+  },
   error: {
     base: '#D9534F',
     50: '#fde6e5',
@@ -43,7 +56,7 @@ const colors = {
     700: '#8e2828',
     800: '#671e1e',
     900: '#401515',
-},
+  },
 };
 
 const breakboints = {
